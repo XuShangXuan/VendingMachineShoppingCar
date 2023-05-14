@@ -1,0 +1,1 @@
+mklink /d .\DrinksImage E:\JavaEEHWImg\VendingMachine\DrinksImage

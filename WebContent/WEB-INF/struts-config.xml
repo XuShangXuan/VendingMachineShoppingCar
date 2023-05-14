@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+
+	<form-beans>
+        <form-bean name="GoodsForm" type="com.gjun.VendingMachine.vo.GoodsForm"/>
+    </form-beans>
+    
+    <action-mappings> 
+    
+        <action path="/LoginAction" type="com.gjun.VendingMachine.action.LoginAction" parameter="action">
+            <!-- 登入成功進入操作首頁  -->
+            <forward name="success" path="/FrontEndAction.do?action=searchGoods" redirect="true"/>
+            <!-- 登入失敗重回登入頁面  -->
+            <forward name="fail" path="/Login.jsp"/>
+        </action>  
+       
+		<!-- 沒用Ajax進行非同步 <action path="/BackEndAction" type="com.gjun.VendingMachineStruts.action.BackEndAction" parameter="action" name="GoodsForm"> -->      
+        <action path="/BackEndAction" type="com.gjun.VendingMachine.action.BackEndActionAjax" 
+        		parameter="action" name="GoodsForm">
+        		
+            <forward name="BackEnd_GoodsListView" path="/WEB-INF/BackEndView/VM_BackEnd_GoodsList.jsp"/>
+            
+            <forward name="BackEnd_GoodsCreate" path="/BackEndAction.do?action=backEndGoodsCreateView" redirect="true"/>
+            <forward name="BackEnd_GoodsCreateView" path="/WEB-INF/BackEndView/VM_BackEnd_GoodsCreate.jsp"/>
+            
+            <forward name="BackEnd_GoodsReplenishment" path="/BackEndAction.do?action=backEndGoodsReplenishmentView" redirect="true"/>
+            <forward name="BackEnd_GoodsReplenishmentView" path="/WEB-INF/BackEndView/VM_BackEnd_GoodsReplenishmentAjax.jsp"/>
+			<!-- 沒用Ajax進行非同步 <forward name="BackEnd_GoodsReplenishmentView" path="/WEB-INF/BackEndView/VM_BackEnd_GoodsReplenishment.jsp"/> -->
+            
+            <forward name="BackEnd_GoodsSaleRepor" path="/WEB-INF/BackEndView/VM_BackEnd_GoodsSaleReport.jsp"/>
+        
+        </action>
+        
+        <action path="/FrontEndAction" type="com.gjun.VendingMachine.action.FrontEndAction" 
+        		parameter="action" name="GoodsForm">
+        	<forward name="VendingMachineView" path="/FrontEndAction.do?action=searchGoods" redirect="true"/>
+            <forward name="VendingMachine" path="/WEB-INF/FrontEndView/VendingMachine.jsp"/>
+        </action>
+        
+    </action-mappings>
+	<!--   http:localhost:8085/VendingMachineShoppingCar/Login.jsp -->
+    
+</struts-config>
