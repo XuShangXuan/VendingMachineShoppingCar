@@ -1,7 +1,5 @@
 package com.gjun.VendingMachine.vo;
 
-import java.math.BigDecimal;
-
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.upload.FormFile;
 

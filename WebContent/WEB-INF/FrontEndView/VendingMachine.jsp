@@ -80,7 +80,7 @@
 		<td width="400" height="200" align="center">		
 			<img border="0" src="DrinksImage/coffee.jpg" width="200" height="200" >			
 			<h1>歡迎光臨，${sessionScope.member.customerName}！</h1>		
-			<a href="BackEndAction.do?action=queryGoodsByPage&currentPage=1" align="left" >後臺頁面</a>&nbsp; &nbsp;
+			<a href="BackEndActionSearchGoods.do?goodsID=&keyword=&minPrice=&maxPrice=&sortByPrice=&stock=&status=&action=queryGoodsBySearchCondition&currentPage=1" align="left" >後臺頁面</a>&nbsp; &nbsp;
 			<a href="LoginAction.do?action=logout" align="left">登出</a>
 			<br/><br/>
 			<form action="FrontEndAction.do" method="post">

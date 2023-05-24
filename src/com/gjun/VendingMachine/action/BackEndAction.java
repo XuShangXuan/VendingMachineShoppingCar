@@ -43,7 +43,9 @@ public class BackEndAction extends DispatchAction {
 		
 		int currentPage = Integer.parseInt(req.getParameter("currentPage"));
 		
-		Page pageBean = backEndService.queryGoodsByPage(currentPage);
+		//原本只有搜尋頁數
+		//Page pageBean = backEndService.queryGoodsByPage(currentPage);
+		Page pageBean = null;
 		req.setAttribute("pageBean", pageBean);
 
 		return mapping.findForward("BackEnd_GoodsListView");

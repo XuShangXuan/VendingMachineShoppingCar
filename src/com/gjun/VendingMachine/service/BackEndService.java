@@ -7,6 +7,7 @@ import com.gjun.VendingMachine.dao.BackEndDao;
 import com.gjun.VendingMachine.model.Goods;
 import com.gjun.VendingMachine.model.SalesReport;
 import com.gjun.VendingMachine.vo.Page;
+import com.gjun.VendingMachine.vo.SearchCondition;
 
 public class BackEndService {
 
@@ -24,13 +25,20 @@ public class BackEndService {
 		return backEndDao.queryAllGoods();
 	}
 	
-	public Page queryGoodsByPage(int currentPage) {
+	public SearchCondition queryGoodsBySearchCondition(String currentPage, SearchCondition searchCondition) {
+		
+		int pageNo = Integer.parseInt(currentPage);
 		
 		// 資料總筆數
-		int dataTotalCount = backEndDao.getAllGoodsCount();
+		int dataTotalCount = backEndDao.getGoodsCountBySearchCondition(searchCondition);
+		
+		//至少要顯示一頁
+		if(dataTotalCount == 0) {
+			dataTotalCount = 1;
+		}
 		
 		// 一頁顯示多少個數據
-		int showDataCount = 10;
+		int showDataCount = 5;
 		
 		// 計算總頁數
 		int pageTotalCount = dataTotalCount % showDataCount == 0 ? (dataTotalCount / showDataCount) : (dataTotalCount / showDataCount) + 1;
@@ -39,13 +47,16 @@ public class BackEndService {
 		int showPageCount = 3;
 		
 		// 計算查詢範圍
-		int endRowNo = showDataCount * currentPage;
+		int endRowNo = showDataCount * pageNo;
 		int startRowNo = endRowNo - showDataCount + 1;
 		
-		// 呼叫dao層獲取分頁後的資料
-		List<Goods> goods = backEndDao.queryGoodsByPage(startRowNo, endRowNo);
+		Page page = new Page(pageNo, pageTotalCount, showPageCount);
+		searchCondition.setPage(page);
 		
-		return new Page(currentPage, pageTotalCount, goods, showPageCount);
+		List<Goods> goods = backEndDao.queryGoodsBySearchCondition(startRowNo, endRowNo, searchCondition);
+		searchCondition.setGoods(goods);
+		
+		return searchCondition;
 	}
 	
 	public List<Goods> queryGoods() {

@@ -3,7 +3,7 @@
 	<table border="1" style="border-collapse:collapse;margin-left:25px;">
 		<tr>
 			<td width="200" height="50" align="center">
-				<a href="BackEndAction.do?action=queryGoodsByPage&currentPage=1">商品列表</a>
+				<a href="BackEndActionSearchGoods.do?goodsID=&keyword=&minPrice=&maxPrice=&sortByPrice=&stock=&status=&action=queryGoodsBySearchCondition&currentPage=1">商品列表</a>
 			</td>
 			<td width="200" height="50" align="center">
 				<a href="BackEndAction.do?action=backEndGoodsReplenishmentView">商品維護作業</a>

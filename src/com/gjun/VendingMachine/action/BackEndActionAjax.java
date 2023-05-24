@@ -21,6 +21,8 @@ import com.gjun.VendingMachine.model.SalesReport;
 import com.gjun.VendingMachine.service.BackEndService;
 import com.gjun.VendingMachine.vo.GoodsForm;
 import com.gjun.VendingMachine.vo.Page;
+import com.gjun.VendingMachine.vo.SearchCondition;
+import com.gjun.VendingMachine.vo.SearchConditionForm;
 
 import net.sf.json.JSONObject;
 
@@ -38,13 +40,22 @@ public class BackEndActionAjax extends DispatchAction {
 
 	}
 	
-	public ActionForward queryGoodsByPage(ActionMapping mapping, ActionForm form, HttpServletRequest req,
+	public ActionForward queryGoodsBySearchCondition(ActionMapping mapping, ActionForm form, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		
-		int currentPage = Integer.parseInt(req.getParameter("currentPage"));
-		
-		Page pageBean = backEndService.queryGoodsByPage(currentPage);
-		req.setAttribute("pageBean", pageBean);
+		SearchConditionForm formDataSearchConditionForm = (SearchConditionForm) form;
+		SearchCondition searchCondition = new SearchCondition();
+		BeanUtils.copyProperties(searchCondition, formDataSearchConditionForm);
+
+		String currentPage = req.getParameter("currentPage");
+
+		if (currentPage == null || "".equals(currentPage)) {
+			currentPage = "1";
+		}
+
+		searchCondition = backEndService.queryGoodsBySearchCondition(currentPage, searchCondition);
+
+		req.setAttribute("searchCondition", searchCondition);
 
 		return mapping.findForward("BackEnd_GoodsListView");
 

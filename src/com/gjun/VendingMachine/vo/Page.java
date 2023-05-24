@@ -65,6 +65,18 @@ public class Page {
 	public void setShowPageCount(int showPageCount) {
 		this.showPageCount = showPageCount;
 	}
+	
+	
+	
+	public Page(int currentPage, int pageTotalCount, int showPageCount) {
+		this.currentPage = currentPage;
+		this.pageTotalCount = pageTotalCount;
+		calculateStartAndEndPage(showPageCount, currentPage, pageTotalCount);
+	}
+
+	
+	
+	
 
 	public Page(int currentPage, int pageTotalCount, List<Goods> goods, int showPageCount) {
 		this.currentPage = currentPage;

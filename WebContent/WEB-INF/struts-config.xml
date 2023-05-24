@@ -6,6 +6,7 @@
 
 	<form-beans>
         <form-bean name="GoodsForm" type="com.gjun.VendingMachine.vo.GoodsForm"/>
+        <form-bean name="SearchConditionForm" type="com.gjun.VendingMachine.vo.SearchConditionForm"/>
     </form-beans>
     
     <action-mappings> 
@@ -21,7 +22,9 @@
         <action path="/BackEndAction" type="com.gjun.VendingMachine.action.BackEndActionAjax" 
         		parameter="action" name="GoodsForm">
         		
+			<!-- 到時候要刪掉 -->
             <forward name="BackEnd_GoodsListView" path="/WEB-INF/BackEndView/VM_BackEnd_GoodsList.jsp"/>
+            <!-- 到時候要刪掉 -->
             
             <forward name="BackEnd_GoodsCreate" path="/BackEndAction.do?action=backEndGoodsCreateView" redirect="true"/>
             <forward name="BackEnd_GoodsCreateView" path="/WEB-INF/BackEndView/VM_BackEnd_GoodsCreate.jsp"/>
@@ -32,6 +35,11 @@
             
             <forward name="BackEnd_GoodsSaleRepor" path="/WEB-INF/BackEndView/VM_BackEnd_GoodsSaleReport.jsp"/>
         
+        </action>
+        
+        <action path="/BackEndActionSearchGoods" type="com.gjun.VendingMachine.action.BackEndActionAjax" 
+        		parameter="action" name="SearchConditionForm">
+        	<forward name="BackEnd_GoodsListView" path="/WEB-INF/BackEndView/VM_BackEnd_GoodsList.jsp"/>
         </action>
         
         <action path="/FrontEndAction" type="com.gjun.VendingMachine.action.FrontEndAction" 
