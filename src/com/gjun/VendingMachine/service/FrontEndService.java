@@ -27,48 +27,39 @@ public class FrontEndService {
 		return frontEndService;
 	}
 	
-	public SearchCondition queryGoodsByPageAndKeyword(String pageNo, String searchKeyword) {
-		
-		int currentPage = Integer.parseInt(pageNo);
-		
+	public SearchCondition queryGoodsBySearchCondition(String currentPage, SearchCondition searchCondition) {
+
+		int pageNo = Integer.parseInt(currentPage);
+
 		// 資料總筆數
-		int dataTotalCount = frontEndDao.getAllGoodsCount();
-		
-		if (searchKeyword != null && !searchKeyword.replaceAll(" ", "").isEmpty()) {
-			dataTotalCount = frontEndDao.getGoodsCountByKeyword(searchKeyword);
+		int dataTotalCount = frontEndDao.getGoodsCountBySearchCondition(searchCondition);
+
+		// 至少要顯示一頁
+		if (dataTotalCount == 0) {
+			dataTotalCount = 1;
 		}
-		
+
 		// 一頁顯示多少個數據
-		final int SHOW_DATA_COUNT = 6;
-		
+		int showDataCount = 6;
+
 		// 計算總頁數
-		int pageTotalCount = dataTotalCount % SHOW_DATA_COUNT == 0 ? (dataTotalCount / SHOW_DATA_COUNT) : (dataTotalCount / SHOW_DATA_COUNT) + 1;
-		
+		int pageTotalCount = dataTotalCount % showDataCount == 0 ? (dataTotalCount / showDataCount)
+				: (dataTotalCount / showDataCount) + 1;
+
 		// 一頁最多顯示多少分頁
 		int showPageCount = 3;
-		
-		// 計算查詢範圍
-		int endRowNo = SHOW_DATA_COUNT * currentPage;
-		int startRowNo = endRowNo - SHOW_DATA_COUNT + 1;
-		
-		Page page = null;
 
-		// 查詢分頁和商品的Keyword
-		// 如顧客只按空白建，但什麼都沒輸入，則查詢Page1的商品
-		if (searchKeyword == null || searchKeyword.replaceAll(" ", "").isEmpty()) {
-			List<Goods> goods = frontEndDao.queryGoodsByPage(startRowNo, endRowNo);
-			page = new Page(currentPage, pageTotalCount, goods, showPageCount);
-			return new SearchCondition(page);
-		} else {
-			List<Goods> goods = frontEndDao.queryGoodsByPageAndKeyword(startRowNo, endRowNo, searchKeyword);
-			if (goods.size() != 0) {
-				page = new Page(currentPage, pageTotalCount, goods, showPageCount);
-			} else {
-				page = new Page(1, 1, goods, 1);
-			}
-			return new SearchCondition(page, searchKeyword);
-		}
-		
+		// 計算查詢範圍
+		int endRowNo = showDataCount * pageNo;
+		int startRowNo = endRowNo - showDataCount + 1;
+
+		Page page = new Page(pageNo, pageTotalCount, showPageCount);
+		searchCondition.setPage(page);
+
+		List<Goods> goods = frontEndDao.queryGoodsBySearchCondition(startRowNo, endRowNo, searchCondition);
+		searchCondition.setGoods(goods);
+
+		return searchCondition;
 	}
 	
 	public ConsumerDetails buyGoods(String customerID, Map<String, Integer> carGoods, int inputMoney) {

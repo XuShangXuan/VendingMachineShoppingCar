@@ -15,7 +15,7 @@
 				<a href="BackEndAction.do?action=querySalesReport">銷售報表</a>
 			</td>
 			<td width="200" height="50" align="center">
-				<a href="FrontEndAction.do?action=searchGoods">前台頁面</a>
+				<a href="FrontEndAction.do?action=queryGoodsBySearchCondition">前台頁面</a>
 			</td>
 		</tr>
 	</table>

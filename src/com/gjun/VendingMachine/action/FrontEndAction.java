@@ -30,18 +30,19 @@ public class FrontEndAction extends DispatchAction {
 		return mapping.findForward("VendingMachine");
 	}
 
-	public ActionForward searchGoods(ActionMapping mapping, ActionForm form, HttpServletRequest req,
+	public ActionForward queryGoodsBySearchCondition(ActionMapping mapping, ActionForm form, HttpServletRequest req,
 			HttpServletResponse res) throws Exception {
 		
-		String pageNo = req.getParameter("pageNo");
+		String currentPage = req.getParameter("currentPage");
 		
-		if (pageNo == null || "".equals(pageNo)) {
-			pageNo = "1";
+		if (currentPage == null || "".equals(currentPage)) {
+			currentPage = "1";
 		}
-
-		String searchKeyword = req.getParameter("searchKeyword");
 		
-		SearchCondition searchCondition = frontEndService.queryGoodsByPageAndKeyword(pageNo, searchKeyword);
+		SearchCondition searchCondition = new SearchCondition();
+		searchCondition.setKeyword(req.getParameter("searchKeyword"));
+		
+		searchCondition = frontEndService.queryGoodsBySearchCondition(currentPage, searchCondition);
 		
 		req.setAttribute("searchCondition", searchCondition);
 
@@ -87,8 +88,6 @@ public class FrontEndAction extends DispatchAction {
 		// 商品加入購物車
 		String goodsID = req.getParameter("goodsID");
 		int buyQuantity = Integer.parseInt(req.getParameter("buyQuantity"));
-		System.out.println("goodsID:" + goodsID);
-		System.out.println("buyQuantity:" + buyQuantity);
 		
 		Map<String, Integer> carGoods = (Map<String, Integer>) session.getAttribute("carGoods");
 		if (carGoods == null) {

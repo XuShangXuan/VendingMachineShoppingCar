@@ -69,8 +69,8 @@
 	<tr>
 		<td colspan="2" align="right">
 			<form action="FrontEndAction.do" method="get">
-				<input type="hidden" name="action" value="searchGoods"/>
-				<input type="hidden" name="pageNo" value="1"/>
+				<input type="hidden" name="action" value="queryGoodsBySearchCondition"/>
+				<input type="hidden" name="currentPage" value="1"/>
 				<input type="text" name="searchKeyword"/>
 				<input type="submit" value="商品查詢"/>
 			</form>
@@ -132,7 +132,7 @@
 		<td width="600" height="400">
 			<!-- <input type="hidden" name="action" value="buyGoods"/> -->
 			<table border="1" style="border-collapse: collapse">
-				<c:forEach items="${searchCondition.page.goods}" var="good" varStatus="status">
+				<c:forEach items="${searchCondition.goods}" var="good" varStatus="status">
 					<c:if test="${status.first}">
 						<tr>
 					</c:if>
@@ -174,24 +174,24 @@
 		<td colspan="2" align="right">
 			<c:if test="${searchCondition.page.currentPage != 1}">
 				<h3 class="page">
-					<a href="FrontEndAction.do?action=searchGoods&pageNo=${searchCondition.page.currentPage-1}&searchKeyword=${searchCondition.keyword}"> 上一頁 </a>
+					<a href="FrontEndAction.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage-1}&searchKeyword=${searchCondition.keyword}"> 上一頁 </a>
 				</h3>
 			</c:if>
 			<c:forEach begin="${searchCondition.page.startPage}" end="${searchCondition.page.endPage}" var="pageNum">
 				<c:if test="${searchCondition.page.currentPage != pageNum}">
 					<h3 class="page">
-						<a href="FrontEndAction.do?action=searchGoods&pageNo=${pageNum}&searchKeyword=${searchCondition.keyword}"> ${pageNum} </a>
+						<a href="FrontEndAction.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}&searchKeyword=${searchCondition.keyword}"> ${pageNum} </a>
 					</h3>
 				</c:if>
 				<c:if test="${searchCondition.page.currentPage == pageNum}">
 					<h3 class="page">
-						<a style="color:red" href="FrontEndAction.do?action=searchGoods&pageNo=${pageNum}&searchKeyword=${searchCondition.keyword}"> ${pageNum} </a>
+						<a style="color:red" href="FrontEndAction.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}&searchKeyword=${searchCondition.keyword}"> ${pageNum} </a>
 					</h3>
 				</c:if>
 			</c:forEach>
 			<c:if test="${searchCondition.page.currentPage != searchCondition.page.pageTotalCount}">
 				<h3 class="page" >
-					<a href="FrontEndAction.do?action=searchGoods&pageNo=${searchCondition.page.currentPage+1}&searchKeyword=${searchCondition.keyword}"> 下一頁 </a>
+					<a href="FrontEndAction.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage+1}&searchKeyword=${searchCondition.keyword}"> 下一頁 </a>
 				</h3>
 			</c:if>
 		</td>
