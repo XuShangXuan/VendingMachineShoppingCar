@@ -71,7 +71,7 @@
 			<form action="FrontEndAction.do" method="get">
 				<input type="hidden" name="action" value="queryGoodsBySearchCondition"/>
 				<input type="hidden" name="currentPage" value="1"/>
-				<input type="text" name="searchKeyword"/>
+				<input type="text" name="searchKeyword" value="${searchCondition.keyword}" placeholder="搜尋商品"/>
 				<input type="submit" value="商品查詢"/>
 			</form>
 		</td>
