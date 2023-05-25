@@ -1,9 +1,5 @@
 package com.gjun.VendingMachine.vo;
 
-import java.util.List;
-
-import com.gjun.VendingMachine.model.Goods;
-
 public class Page {
 	
 	private int currentPage;
@@ -13,8 +9,6 @@ public class Page {
 	private int startPage;
 	
 	private int endPage;
-	
-	private List<Goods> goods;
 
 	private int showPageCount;
 	
@@ -49,14 +43,6 @@ public class Page {
 	public void setEndPage(int endPage) {
 		this.endPage = endPage;
 	}
-
-	public List<Goods> getGoods() {
-		return goods;
-	}
-
-	public void setGoods(List<Goods> goods) {
-		this.goods = goods;
-	}
 	
 	public int getShowPageCount() {
 		return showPageCount;
@@ -66,22 +52,9 @@ public class Page {
 		this.showPageCount = showPageCount;
 	}
 	
-	
-	
 	public Page(int currentPage, int pageTotalCount, int showPageCount) {
 		this.currentPage = currentPage;
 		this.pageTotalCount = pageTotalCount;
-		calculateStartAndEndPage(showPageCount, currentPage, pageTotalCount);
-	}
-
-	
-	
-	
-
-	public Page(int currentPage, int pageTotalCount, List<Goods> goods, int showPageCount) {
-		this.currentPage = currentPage;
-		this.pageTotalCount = pageTotalCount;
-		this.goods = goods;
 		calculateStartAndEndPage(showPageCount, currentPage, pageTotalCount);
 	}
 
