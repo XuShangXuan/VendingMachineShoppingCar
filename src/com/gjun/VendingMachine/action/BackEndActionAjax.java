@@ -16,13 +16,12 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
+import com.gjun.VendingMachine.actionForm.GoodsForm;
+import com.gjun.VendingMachine.actionForm.SearchConditionForm;
 import com.gjun.VendingMachine.model.Goods;
 import com.gjun.VendingMachine.model.SalesReport;
 import com.gjun.VendingMachine.service.BackEndService;
-import com.gjun.VendingMachine.vo.GoodsForm;
-import com.gjun.VendingMachine.vo.Page;
 import com.gjun.VendingMachine.vo.SearchCondition;
-import com.gjun.VendingMachine.vo.SearchConditionForm;
 
 import net.sf.json.JSONObject;
 

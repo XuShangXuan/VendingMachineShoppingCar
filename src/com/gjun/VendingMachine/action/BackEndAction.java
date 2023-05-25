@@ -1,7 +1,6 @@
 package com.gjun.VendingMachine.action;
 
 import java.io.FileOutputStream;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Set;
 
@@ -15,10 +14,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.DispatchAction;
 
+import com.gjun.VendingMachine.actionForm.GoodsForm;
 import com.gjun.VendingMachine.model.Goods;
 import com.gjun.VendingMachine.model.SalesReport;
 import com.gjun.VendingMachine.service.BackEndService;
-import com.gjun.VendingMachine.vo.GoodsForm;
 import com.gjun.VendingMachine.vo.Page;
 
 public class BackEndAction extends DispatchAction {

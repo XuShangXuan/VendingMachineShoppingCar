@@ -5,8 +5,8 @@
 <struts-config>
 
 	<form-beans>
-        <form-bean name="GoodsForm" type="com.gjun.VendingMachine.vo.GoodsForm"/>
-        <form-bean name="SearchConditionForm" type="com.gjun.VendingMachine.vo.SearchConditionForm"/>
+        <form-bean name="GoodsForm" type="com.gjun.VendingMachine.actionForm.GoodsForm"/>
+        <form-bean name="SearchConditionForm" type="com.gjun.VendingMachine.actionForm.SearchConditionForm"/>
     </form-beans>
     
     <action-mappings> 

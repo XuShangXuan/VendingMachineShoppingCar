@@ -1,4 +1,4 @@
-package com.gjun.VendingMachine.vo;
+package com.gjun.VendingMachine.actionForm;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.upload.FormFile;
