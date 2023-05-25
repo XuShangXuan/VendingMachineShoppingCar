@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,34 +19,54 @@
 	</style>
 	<script type="text/javascript">
 	
-	function test(){
+// 	function test(){
 		
-		alert("測試");
+// 		alert("測試");
 	      
-	}
+// 	}
+	
+	
+		// Example starter JavaScript for disabling form submissions if there are invalid fields
+		(function() {
+		  'use strict';
+		  window.addEventListener('load', function() {
+		    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		    var forms = document.getElementsByClassName('needs-validation');
+		    // Loop over them and prevent submission
+		    var validation = Array.prototype.filter.call(forms, function(form) {
+		      form.addEventListener('submit', function(event) {
+		        if (form.checkValidity() === false) {
+		          event.preventDefault();
+		          event.stopPropagation();
+		        }
+		        form.classList.add('was-validated');
+		      }, false);
+		    });
+		  }, false);
+		})();
+	
 	
 	</script>
 </head>
 <body>
-
+	<div class="container">
 	<%@ include file="VM_BackEnd_FunMenu.jsp" %>
-	
-	<div style="margin-left:25px">
-		<h2>商品列表</h2>
-		
+	<div class="container">
+		<p class="h2">商品列表</p>
 		<br/>
+		
 		<form action="BackEndActionSearchGoods.do" method="get" class="needs-validation" novalidate>
 			<div class="form-row">
-			    <div class="col-3">
+			    <div class="col">
 			      <label for="goodsIDID">商品編號</label>
-			      <input type="number" min="1" class="form-control" value="${searchCondition.goodsID}" name="goodsID" id="goodsIDID" placeholder="Enter number" required>
+			      <input type="number" min="1" class="form-control" value="${searchCondition.goodsID}" name="goodsID" id="goodsIDID" placeholder="Enter number">
 			      <div class="valid-feedback">
 			        Looks good!
 			      </div>
 			    </div>
-			    <div class="col-3">
+			    <div class="col">
 			      <label for="keywordID">商品名稱</label>
-			      <input type="text" class="form-control" value="${searchCondition.keyword}" name="keyword" id="keywordID" placeholder="Enter text" required>
+			      <input type="text" class="form-control" value="${searchCondition.keyword}" name="keyword" id="keywordID" placeholder="Enter text">
 			      <div class="valid-feedback">
 			        Looks good!
 			      </div>
@@ -53,21 +74,21 @@
 	  		</div>
 	  		<br/>
 	  		<div class="form-row">
-			    <div class="col-2">
+			    <div class="col">
 			      <label for="minPriceID">商品價格最低價</label>
-			      <input type="number" min="0" class="form-control" value="${searchCondition.minPrice}" name="minPrice" id="minPriceID" placeholder="Enter goods price start" required>
+			      <input type="number" min="0" class="form-control" value="${searchCondition.minPrice}" name="minPrice" id="minPriceID" placeholder="Enter goods price start">
 			      <div class="valid-feedback">
 			        Looks good!
 			      </div>
 			    </div>
-			    <div class="col-2">
+			    <div class="col">
 			      <label for="maxPriceID">商品價格最高價</label>
-			      <input type="number" min="0" class="form-control" value="${searchCondition.maxPrice}" name="maxPrice" id="maxPriceID" placeholder="Enter goods price end" required>
+			      <input type="number" min="0" class="form-control" value="${searchCondition.maxPrice}" name="maxPrice" id="maxPriceID" placeholder="Enter goods price end">
 			      <div class="valid-feedback">
 			        Looks good!
 			      </div>
 			    </div>
-			    <div class="col-2">
+			    <div class="col">
 			      <label for="sortByPriceID">價格排序</label>
 			      <select class="form-control" name="sortByPrice" id="sortByPriceID">
 			      	<option <c:if test="${empty searchCondition.sortByPrice}">selected</c:if> value="">無</option>
@@ -81,14 +102,14 @@
 	  		</div>
 	  		<br/>
 	  		<div class="form-row">
-			    <div class="col-2">
+			    <div class="col">
 			      <label for="stockID">商品低於庫存量</label>
-			      <input type="number" min="0" class="form-control" value="${searchCondition.stock}" name="stock" id="stockID" placeholder="Enter goods stock quantity" required>
+			      <input type="number" min="0" class="form-control" value="${searchCondition.stock}" name="stock" id="stockID" placeholder="Enter goods stock quantity">
 			      <div class="valid-feedback">
 			        Looks good!
 			      </div>
 			    </div>
-			    <div class="col-2">
+			    <div class="col">
 			      <label for="statusID">商品狀態</label>
 			      <select class="form-control" name="status" id="statusID">
 			        <option <c:if test="${empty searchCondition.status}">selected</c:if> value="">ALL</option>
@@ -99,10 +120,11 @@
 			        Looks good!
 			      </div>
 			    </div>
-			    <div class="col-2">
+			    <div class="col">
 			    	<label for="submitID">查詢</label>
 			    	<input type="hidden" name="action" value="queryGoodsBySearchCondition"/>
 			    	<input type="hidden" name="currentPage" value="1"/>
+					<!--  <button class="btn btn-primary" type="submit">查詢</button> -->
 			    	<input type="submit" id="submitID" class="form-control" value="查詢">
 					<!-- <input type="button" onclick="test()" class="form-control" value="查詢"> -->
 			    </div>
@@ -110,73 +132,63 @@
 		</form>
 		
 		<br/>
-		
-<!-- 		<table> -->
-<!-- 			<td colspan="2" align="Left"> -->
-<!-- 				<form action="BackEndAction.do" method="get"> -->
-<!-- 					<input type="hidden" name="action" value="searchGoods"/> -->
-<!-- 					<input type="hidden" name="pageNo" value="1"/> -->
-<!-- 					<input type="text" name="searchKeyword"/> -->
-<!-- 					<input type="submit" value="商品查詢"/> -->
-<!-- 				</form> -->
-<!-- 			</td> -->
-<!-- 		</table> -->
-		<table border="1">
-			<tbody>
-				<tr height="50">
-					<td width="100"><b>商品編號</b></td>
-					<td width="200"><b>商品名稱</b></td> 
-					<td width="100"><b>商品價格</b></td>
-					<td width="100"><b>現有庫存</b></td>
-					<td width="100"><b>商品狀態</b></td>
-				</tr>
-	   			<c:forEach items="${searchCondition.goods}" var="good">
-					<tr height="30">
-						<td>${good.goodsID}</td> 
-						<td>${good.goodsName}</td> 
-						<td>${good.goodsPrice}</td>
-						<td>${good.goodsQuantity}</td>
-						<c:choose>
+		<table class="table table-striped table table-hover" border="1">
+		    <thead>
+		      <tr>
+		        <th scope="col">商品編號</th>
+		        <th colspan="2">商品名稱</th>
+		        <th scope="col">商品價格</th>
+		        <th scope="col">現有庫存</th>
+		        <th scope="col">商品狀態</th>
+		      </tr>
+		    </thead>
+		    <tbody>
+		   	 <c:forEach items="${searchCondition.goods}" var="good">
+			      <tr>
+			        <th scope="row">${good.goodsID}</th>
+			        <td colspan="2">${good.goodsName}</td>
+			        <td>${good.goodsPrice}</td>
+			        <td>${good.goodsQuantity}</td>
+			        <c:choose>
 							<c:when test="${good.status eq 1}">
 								<td style="color:blue">上架</td>
 							</c:when>
 							<c:otherwise>
 								<td style="color:red">下架</td>
 							</c:otherwise>
-						</c:choose>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+					</c:choose>
+			      </tr>
+		      </c:forEach>
+		    </tbody>
+	    </table>
+	    
+		<ul class="pagination">
+	      <c:if test="${searchCondition.page.currentPage != 1}">
+		      <li class="page-item">
+		        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=1">«</a>
+		      </li>
+		      <li class="page-item">
+		        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage-1}">‹</a>
+		      </li>
+	      </c:if>
+	      <c:forEach begin="${searchCondition.page.startPage}" end="${searchCondition.page.endPage}" var="pageNum">
+	      	<c:if test="${searchCondition.page.currentPage != pageNum}">
+	      		<li class="page-item"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}">${pageNum}</a></li>
+	      	</c:if>
+	      	<c:if test="${searchCondition.page.currentPage == pageNum}">
+	      		<li class="page-item active"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}">${pageNum}</a></li>
+	      	</c:if>
+	      </c:forEach>
+	      <c:if test="${searchCondition.page.currentPage != searchCondition.page.pageTotalCount}">
+		      <li class="page-item">
+		        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage+1}">›</a>
+		      </li>
+		      <li class="page-item">
+		        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.pageTotalCount}">»</a>
+		      </li>
+	      </c:if>
+	    </ul>
+	    <p class="text-muted" style="display:inline-block">共${fn:length(searchCondition.goods)}件商品</p>
 	</div>
-	
-	<table width="630">
-	<tr>
-		<td colspan="2" align="right">
-			<c:if test="${searchCondition.page.currentPage != 1}">
-				<h3 class="page">
-					<a href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage-1}"> 上一頁 </a>
-				</h3>
-			</c:if>
-			<c:forEach begin="${searchCondition.page.startPage}" end="${searchCondition.page.endPage}" var="pageNum">
-				<c:if test="${searchCondition.page.currentPage != pageNum}">
-					<h3 class="page">
-						<a href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}"> ${pageNum} </a>
-					</h3>
-				</c:if>
-				<c:if test="${searchCondition.page.currentPage == pageNum}">
-					<h3 class="page">
-						<a style="color:red" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}"> ${pageNum} </a>
-					</h3>
-				</c:if>
-			</c:forEach>
-			<c:if test="${searchCondition.page.currentPage != searchCondition.page.pageTotalCount}">
-				<h3 class="page" >
-					<a href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage+1}"> 下一頁 </a>
-				</h3>
-			</c:if>
-		</td>
-	</tr>
-	</table>
 </body>
 </html>
