@@ -7,6 +7,7 @@ import com.gjun.VendingMachine.model.Goods;
 public class SearchCondition {
 	
 	private List<Goods> goods;
+	private int goodsTotalCounts;
 	private Page page;
 	private String goodsID;
 	private String keyword;
@@ -22,6 +23,14 @@ public class SearchCondition {
 
 	public void setGoods(List<Goods> goods) {
 		this.goods = goods;
+	}
+	
+	public int getGoodsTotalCounts() {
+		return goodsTotalCounts;
+	}
+
+	public void setGoodsTotalCounts(int goodsCounts) {
+		this.goodsTotalCounts = goodsCounts;
 	}
 
 	public Page getPage() {

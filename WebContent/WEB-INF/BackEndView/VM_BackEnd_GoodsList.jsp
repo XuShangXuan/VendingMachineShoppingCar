@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,11 +11,8 @@
 <script type="text/javascript" src="./bootstrap4.0/popper.min.js"></script>
 <script type="text/javascript" src="./bootstrap4.0/bootstrap.min.js"></script>
 	<style type="text/css">
- 		.page {
- 			display:inline-block;
- 			padding-left: 10px; 
-		}
 	</style>
+	
 	<script type="text/javascript">
 	
 // 	function test(){
@@ -50,8 +46,9 @@
 </head>
 <body>
 	<div class="container">
-	<%@ include file="VM_BackEnd_FunMenu.jsp" %>
-	<div class="container">
+	
+		<%@ include file="VM_BackEnd_FunMenu.jsp" %>
+	
 		<p class="h2">商品列表</p>
 		<br/>
 		
@@ -162,33 +159,51 @@
 		    </tbody>
 	    </table>
 	    
-		<ul class="pagination">
-	      <c:if test="${searchCondition.page.currentPage != 1}">
-		      <li class="page-item">
-		        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=1">«</a>
-		      </li>
-		      <li class="page-item">
-		        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage-1}">‹</a>
-		      </li>
-	      </c:if>
-	      <c:forEach begin="${searchCondition.page.startPage}" end="${searchCondition.page.endPage}" var="pageNum">
-	      	<c:if test="${searchCondition.page.currentPage != pageNum}">
-	      		<li class="page-item"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}">${pageNum}</a></li>
-	      	</c:if>
-	      	<c:if test="${searchCondition.page.currentPage == pageNum}">
-	      		<li class="page-item active"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}">${pageNum}</a></li>
-	      	</c:if>
-	      </c:forEach>
-	      <c:if test="${searchCondition.page.currentPage != searchCondition.page.pageTotalCount}">
-		      <li class="page-item">
-		        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage+1}">›</a>
-		      </li>
-		      <li class="page-item">
-		        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.pageTotalCount}">»</a>
-		      </li>
-	      </c:if>
-	    </ul>
-	    <p class="text-muted" style="display:inline-block">共${fn:length(searchCondition.goods)}件商品</p>
+	    <div class="row">
+	    	<div class="col-2">
+				<ul class="pagination ">
+			      <c:if test="${searchCondition.page.currentPage != 1}">
+				      <li class="page-item">
+				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=1">«</a>
+				      </li>
+				      <li class="page-item">
+				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage-1}">‹</a>
+				      </li>
+			      </c:if>
+			      <c:forEach begin="${searchCondition.page.startPage}" end="${searchCondition.page.endPage}" var="pageNum">
+			      	<c:if test="${searchCondition.page.currentPage != pageNum}">
+			      		<li class="page-item"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}">${pageNum}</a></li>
+			      	</c:if>
+			      	<c:if test="${searchCondition.page.currentPage == pageNum}">
+			      		<li class="page-item active"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}">${pageNum}</a></li>
+			      	</c:if>
+			      </c:forEach>
+			      <c:if test="${searchCondition.page.currentPage != searchCondition.page.pageTotalCount}">
+				      <li class="page-item">
+				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage+1}">›</a>
+				      </li>
+				      <li class="page-item">
+				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.pageTotalCount}">»</a>
+				      </li>
+			      </c:if>
+			    </ul>
+		    </div>
+		    <div class="col-8">
+			    <div class="dropdown">
+				  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    5/Page
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				    <a class="dropdown-item" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage}">5/Page</a>
+				    <a class="dropdown-item" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage}">10/Page</a>
+				    <a class="dropdown-item" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage}">15/Page</a>
+				  </div>
+				</div>
+			</div>
+	    	<div class="col-2">
+	    		<p class="text-muted" align="right">共${searchCondition.goodsTotalCounts}件商品</p>
+	    	</div>
+	    </div>
 	</div>
 </body>
 </html>

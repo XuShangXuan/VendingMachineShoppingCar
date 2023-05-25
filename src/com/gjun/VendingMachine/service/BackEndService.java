@@ -32,6 +32,8 @@ public class BackEndService {
 		// 資料總筆數
 		int dataTotalCount = backEndDao.getGoodsCountBySearchCondition(searchCondition);
 		
+		searchCondition.setGoodsTotalCounts(dataTotalCount);
+		
 		//至少要顯示一頁
 		if(dataTotalCount == 0) {
 			dataTotalCount = 1;
