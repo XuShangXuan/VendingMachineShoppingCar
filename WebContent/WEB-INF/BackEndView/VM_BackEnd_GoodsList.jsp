@@ -14,34 +14,6 @@
 	</style>
 	
 	<script type="text/javascript">
-	
-// 	function test(){
-		
-// 		alert("測試");
-	      
-// 	}
-	
-	
-		// Example starter JavaScript for disabling form submissions if there are invalid fields
-		(function() {
-		  'use strict';
-		  window.addEventListener('load', function() {
-		    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-		    var forms = document.getElementsByClassName('needs-validation');
-		    // Loop over them and prevent submission
-		    var validation = Array.prototype.filter.call(forms, function(form) {
-		      form.addEventListener('submit', function(event) {
-		        if (form.checkValidity() === false) {
-		          event.preventDefault();
-		          event.stopPropagation();
-		        }
-		        form.classList.add('was-validated');
-		      }, false);
-		    });
-		  }, false);
-		})();
-	
-	
 	</script>
 </head>
 <body>
@@ -121,9 +93,8 @@
 			    	<label for="submitID">查詢</label>
 			    	<input type="hidden" name="action" value="queryGoodsBySearchCondition"/>
 			    	<input type="hidden" name="currentPage" value="1"/>
-					<!--  <button class="btn btn-primary" type="submit">查詢</button> -->
+			    	<input type="hidden" name="showPageCount" value="${searchCondition.page.showPageCount}"/>
 			    	<input type="submit" id="submitID" class="form-control" value="查詢">
-					<!-- <input type="button" onclick="test()" class="form-control" value="查詢"> -->
 			    </div>
 	  		</div>
 		</form>
@@ -160,46 +131,46 @@
 	    </table>
 	    
 	    <div class="row">
-	    	<div class="col-2">
+		    <div class="col-1">
+			    <div class="dropdown">
+				  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    ${searchCondition.page.showPageCount}/Page
+				  </button>
+				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				    <a class="dropdown-item" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&showPageCount=3&currentPage=${searchCondition.page.currentPage}">3/Page</a>
+				    <a class="dropdown-item" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&showPageCount=5&currentPage=${searchCondition.page.currentPage}">5/Page</a>
+				    <a class="dropdown-item" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&showPageCount=7&currentPage=${searchCondition.page.currentPage}">7/Page</a>
+				  </div>
+				</div>
+			</div>
+	    	<div class="col">
 				<ul class="pagination ">
 			      <c:if test="${searchCondition.page.currentPage != 1}">
 				      <li class="page-item">
-				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=1">«</a>
+				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&showPageCount=${searchCondition.page.showPageCount}&currentPage=1">«</a>
 				      </li>
 				      <li class="page-item">
-				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage-1}">‹</a>
+				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&showPageCount=${searchCondition.page.showPageCount}&currentPage=${searchCondition.page.currentPage-1}">‹</a>
 				      </li>
 			      </c:if>
 			      <c:forEach begin="${searchCondition.page.startPage}" end="${searchCondition.page.endPage}" var="pageNum">
 			      	<c:if test="${searchCondition.page.currentPage != pageNum}">
-			      		<li class="page-item"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}">${pageNum}</a></li>
+			      		<li class="page-item"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&showPageCount=${searchCondition.page.showPageCount}&currentPage=${pageNum}">${pageNum}</a></li>
 			      	</c:if>
 			      	<c:if test="${searchCondition.page.currentPage == pageNum}">
-			      		<li class="page-item active"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${pageNum}">${pageNum}</a></li>
+			      		<li class="page-item active"><a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&showPageCount=${searchCondition.page.showPageCount}&currentPage=${pageNum}">${pageNum}</a></li>
 			      	</c:if>
 			      </c:forEach>
 			      <c:if test="${searchCondition.page.currentPage != searchCondition.page.pageTotalCount}">
 				      <li class="page-item">
-				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage+1}">›</a>
+				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&showPageCount=${searchCondition.page.showPageCount}&currentPage=${searchCondition.page.currentPage+1}">›</a>
 				      </li>
 				      <li class="page-item">
-				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.pageTotalCount}">»</a>
+				        <a class="page-link" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&showPageCount=${searchCondition.page.showPageCount}&currentPage=${searchCondition.page.pageTotalCount}">»</a>
 				      </li>
 			      </c:if>
 			    </ul>
 		    </div>
-		    <div class="col-8">
-			    <div class="dropdown">
-				  <button class="btn btn-light dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    5/Page
-				  </button>
-				  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-				    <a class="dropdown-item" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage}">5/Page</a>
-				    <a class="dropdown-item" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage}">10/Page</a>
-				    <a class="dropdown-item" href="BackEndActionSearchGoods.do?action=queryGoodsBySearchCondition&currentPage=${searchCondition.page.currentPage}">15/Page</a>
-				  </div>
-				</div>
-			</div>
 	    	<div class="col-2">
 	    		<p class="text-muted" align="right">共${searchCondition.goodsTotalCounts}件商品</p>
 	    	</div>

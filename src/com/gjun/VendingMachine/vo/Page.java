@@ -53,6 +53,7 @@ public class Page {
 	}
 	
 	public Page(int currentPage, int pageTotalCount, int showPageCount) {
+		this.showPageCount = showPageCount;
 		this.currentPage = currentPage;
 		this.pageTotalCount = pageTotalCount;
 		calculateStartAndEndPage(showPageCount, currentPage, pageTotalCount);

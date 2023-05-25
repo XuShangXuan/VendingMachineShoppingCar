@@ -51,8 +51,13 @@ public class BackEndActionAjax extends DispatchAction {
 		if (currentPage == null || "".equals(currentPage)) {
 			currentPage = "1";
 		}
+		
+		String showPageCount = req.getParameter("showPageCount");
+		if (showPageCount == null || "".equals(showPageCount)) {
+			showPageCount = "3";
+		}
 
-		searchCondition = backEndService.queryGoodsBySearchCondition(currentPage, searchCondition);
+		searchCondition = backEndService.queryGoodsBySearchCondition(showPageCount, currentPage, searchCondition);
 
 		req.setAttribute("searchCondition", searchCondition);
 

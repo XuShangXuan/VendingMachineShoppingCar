@@ -25,7 +25,8 @@ public class BackEndService {
 		return backEndDao.queryAllGoods();
 	}
 	
-	public SearchCondition queryGoodsBySearchCondition(String currentPage, SearchCondition searchCondition) {
+	public SearchCondition queryGoodsBySearchCondition(String showPageCount, String currentPage,
+			SearchCondition searchCondition) {
 		
 		int pageNo = Integer.parseInt(currentPage);
 		
@@ -45,14 +46,11 @@ public class BackEndService {
 		// 計算總頁數
 		int pageTotalCount = dataTotalCount % showDataCount == 0 ? (dataTotalCount / showDataCount) : (dataTotalCount / showDataCount) + 1;
 		
-		// 一頁最多顯示多少分頁
-		int showPageCount = 3;
-		
 		// 計算查詢範圍
 		int endRowNo = showDataCount * pageNo;
 		int startRowNo = endRowNo - showDataCount + 1;
 		
-		Page page = new Page(pageNo, pageTotalCount, showPageCount);
+		Page page = new Page(pageNo, pageTotalCount, Integer.parseInt(showPageCount));
 		searchCondition.setPage(page);
 		
 		List<Goods> goods = backEndDao.queryGoodsBySearchCondition(startRowNo, endRowNo, searchCondition);
