@@ -255,8 +255,8 @@ public class BackEndDao {
 		}else {
 			querySQL.append(" ROW_NUMBER() OVER(ORDER BY BG.GOODS_ID) NUM ");
 		}
-		querySQL.append("  FROM BEVERAGE_GOODS BG "
-					   + " WHERE GOODS_ID IS NOT NULL ");
+		querySQL.append("  FROM BEVERAGE_GOODS BG ")
+				.append("  WHERE GOODS_ID IS NOT NULL ");
 		if (null != goodsID && !goodsID.replaceAll(" ", "").isEmpty()) {
 			querySQL.append(" AND GOODS_ID=? ");
 		}

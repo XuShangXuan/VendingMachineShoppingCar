@@ -210,7 +210,7 @@ public class FrontEndDao {
 		}
 		querySQL.append("  FROM BEVERAGE_GOODS BG ")
 				.append("  WHERE GOODS_ID IS NOT NULL ")
-				.append(" AND STATUS = 1 ");
+				.append("  AND STATUS = 1 ");
 		if (null != goodsID && !goodsID.replaceAll(" ", "").isEmpty()) {
 			querySQL.append(" AND GOODS_ID=? ");
 		}
