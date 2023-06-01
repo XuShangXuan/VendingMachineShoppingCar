@@ -150,7 +150,7 @@
 						</font>
 						<br/>
 						<!-- 各商品圖片 -->
-						<img border="0" src="DrinksImage/${good.goodsImageName}" width="150" height="150" >						
+						<img border="0" src="DrinksImage/${good.goodsImageName}" title="${good.goodsDescreption}" width="150" height="150" >						
 						<br/>
 						<font face="微軟正黑體" size="3">
 							<input type="hidden" name="goodsID" value="${good.goodsID}">
