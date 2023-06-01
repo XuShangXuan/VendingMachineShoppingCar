@@ -100,7 +100,6 @@ public class FrontEndDao {
 		String minPrice = null;
 		String maxPrice = null;
 		String stock = null;
-		String status = null;
 
 		if (searchCondition != null) {
 			goodsID = searchCondition.getGoodsID();
@@ -108,14 +107,14 @@ public class FrontEndDao {
 			minPrice = searchCondition.getMinPrice();
 			maxPrice = searchCondition.getMaxPrice();
 			stock = searchCondition.getStock();
-			status = searchCondition.getStatus();
 		}
 		
 		int count = 0;
 
 		StringBuilder querySQL = new StringBuilder();
 		querySQL.append(" SELECT COUNT(*) FROM BEVERAGE_GOODS ")
-				.append(" WHERE GOODS_ID IS NOT NULL ");
+				.append(" WHERE GOODS_ID IS NOT NULL ")
+				.append(" AND STATUS = 1 ");
 		if (null != goodsID && !goodsID.replaceAll(" ", "").isEmpty()) {
 			querySQL.append(" AND GOODS_ID=? ");
 		}
@@ -130,9 +129,6 @@ public class FrontEndDao {
 		}
 		if (null != stock && !stock.replaceAll(" ", "").isEmpty()) {
 			querySQL.append(" AND QUANTITY <= ? ");
-		}
-		if (null != status && !status.replaceAll(" ", "").isEmpty()) {
-			querySQL.append(" AND STATUS = ? ");
 		}
 		
 		try (Connection conn = DBConnectionFactory.getLocalDBConnection(); // 連接資料庫
@@ -154,9 +150,6 @@ public class FrontEndDao {
 			}
 			if (null != stock && !stock.replaceAll(" ", "").isEmpty()) {
 				pstmt.setString(position++, stock);
-			}
-			if (null != status && !status.replaceAll(" ", "").isEmpty()) {
-				pstmt.setString(position++, status);
 			}
 
 			try (ResultSet rs = pstmt.executeQuery()) { // 執行SQL語句，並回傳資料結果集(Set集合)
@@ -186,7 +179,6 @@ public class FrontEndDao {
 		String minPrice = null;
 		String maxPrice = null;
 		String stock = null;
-		String status = null;
 
 		if (searchCondition != null) {
 			sortByPrice = searchCondition.getSortByPrice();
@@ -195,7 +187,6 @@ public class FrontEndDao {
 			minPrice = searchCondition.getMinPrice();
 			maxPrice = searchCondition.getMaxPrice();
 			stock = searchCondition.getStock();
-			status = searchCondition.getStatus();
 		}
 		
 		List<Goods> goods =new ArrayList<>();
@@ -217,8 +208,9 @@ public class FrontEndDao {
 		}else {
 			querySQL.append(" ROW_NUMBER() OVER(ORDER BY BG.GOODS_ID) NUM ");
 		}
-		querySQL.append("  FROM BEVERAGE_GOODS BG "
-					   + " WHERE GOODS_ID IS NOT NULL ");
+		querySQL.append("  FROM BEVERAGE_GOODS BG ")
+				.append("  WHERE GOODS_ID IS NOT NULL ")
+				.append(" AND STATUS = 1 ");
 		if (null != goodsID && !goodsID.replaceAll(" ", "").isEmpty()) {
 			querySQL.append(" AND GOODS_ID=? ");
 		}
@@ -233,9 +225,6 @@ public class FrontEndDao {
 		}
 		if (null != stock && !stock.replaceAll(" ", "").isEmpty()) {
 			querySQL.append(" AND BG.QUANTITY <= ? ");
-		}
-		if (null != status && !status.replaceAll(" ", "").isEmpty()) {
-			querySQL.append(" AND BG.STATUS = ? ");
 		}
 		querySQL.append(" ) "
 					  + " WHERE NUM BETWEEN ? AND ? ");
@@ -259,9 +248,6 @@ public class FrontEndDao {
 			}
 			if (null != stock && !stock.replaceAll(" ", "").isEmpty()) {
 				pstmt.setString(position++, stock);
-			}
-			if (null != status && !status.replaceAll(" ", "").isEmpty()) {
-				pstmt.setString(position++, status);
 			}
 			pstmt.setInt(position++, startRowNo); // SQL語句中的BETWEEN有包含該數字，因此要加1減1
 			pstmt.setInt(position++, endRowNo);
