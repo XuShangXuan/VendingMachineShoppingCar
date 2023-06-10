@@ -71,47 +71,49 @@
 <body>
 
 	<%@ include file="VM_BackEnd_FunMenu.jsp" %>
-		
-	<h2>商品維護作業</h2><br/>
-	<div style="margin-left:25px;">
-	<p style="color:blue;">${sessionScope.modifyMsg}</p>
-	<form name="updateGoodsForm" action="BackEndAction.do" method="post">
-		<input type="hidden" name="action" value="updateGoods"/>
-		<p>
-			飲料名稱：
-			 <select id="goodsID" name="goodsID">
-			 	<option value="">---請選擇---</option>
-			 	<c:forEach items="${goods}" var="good">
-					<option <c:if test="${good.goodsID eq modifyGoods.goodsID}">selected</c:if> value="${good.goodsID}">
-						${good.goodsName}
-					</option>
-				</c:forEach>
-			</select>
-		</p>		
-		<p>
-			更改價格： 
-			<input type="number" id="priceID" name="goodsPrice" size="5" value="${modifyGoods.goodsPrice}" min="0" max="1000">
-		</p>
-		<p>
-			補貨數量：
-			<input type="number" id="quantityID" name="goodsQuantity" size="5" value="0" min="0" max="1000">
-			(庫存:<a id="stockID">${modifyGoods.goodsQuantity}</a>件)
-		</p>
-		<p>
-			商品狀態：
-			<select name="status" id="statusID">
-				<option <c:if test="${modifyGoods.status eq 1}">selected</c:if> value="1">上架</option>
-				<option <c:if test="${modifyGoods.status eq 0}">selected</c:if> value="0">下架</option>				
-			</select>
-		</p>
-		<p>
-			<input type="button" value="送出" onclick="submitFunction()"/>
-		</p>
-	</form>
-	<%
-		session.removeAttribute("modifyMsg");
-		session.removeAttribute("modifyGoodsID");
-	%>
+	
+	<div class="container">
+		<h2>商品維護作業</h2><br/>
+		<div style="margin-left:25px;">
+		<p style="color:blue;">${sessionScope.modifyMsg}</p>
+		<form name="updateGoodsForm" action="BackEndAction.do" method="post">
+			<input type="hidden" name="action" value="updateGoods"/>
+			<p>
+				飲料名稱：
+				 <select id="goodsID" name="goodsID">
+				 	<option value="">---請選擇---</option>
+				 	<c:forEach items="${goods}" var="good">
+						<option <c:if test="${good.goodsID eq modifyGoods.goodsID}">selected</c:if> value="${good.goodsID}">
+							${good.goodsName}
+						</option>
+					</c:forEach>
+				</select>
+			</p>		
+			<p>
+				更改價格： 
+				<input type="number" id="priceID" name="goodsPrice" size="5" value="${modifyGoods.goodsPrice}" min="0" max="1000">
+			</p>
+			<p>
+				補貨數量：
+				<input type="number" id="quantityID" name="goodsQuantity" size="5" value="0" min="0" max="1000">
+				(庫存:<a id="stockID">${modifyGoods.goodsQuantity}</a>件)
+			</p>
+			<p>
+				商品狀態：
+				<select name="status" id="statusID">
+					<option <c:if test="${modifyGoods.status eq 1}">selected</c:if> value="1">上架</option>
+					<option <c:if test="${modifyGoods.status eq 0}">selected</c:if> value="0">下架</option>				
+				</select>
+			</p>
+			<p>
+				<input type="button" value="送出" onclick="submitFunction()"/>
+			</p>
+		</form>
+		<%
+			session.removeAttribute("modifyMsg");
+			session.removeAttribute("modifyGoodsID");
+		%>
+		</div>
 	</div>
 </body>
 </html>
