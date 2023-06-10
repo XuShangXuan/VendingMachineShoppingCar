@@ -5,11 +5,7 @@
 <head>
 <meta http-equiv="Content-Language" content="zh-tw">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link type="text/css" rel="stylesheet" href="./bootstrap4.0/bootstrap.min.css" />
 <title>販賣機-後臺ShoppingCar</title>
-<script type="text/javascript" src="./bootstrap4.0/jquery-3.2.1.min.js"></script>
-<script type="text/javascript" src="./bootstrap4.0/popper.min.js"></script>
-<script type="text/javascript" src="./bootstrap4.0/bootstrap.min.js"></script>
 	<style type="text/css">
 	</style>
 	
@@ -17,13 +13,12 @@
 	</script>
 </head>
 <body>
+	
+	<%@ include file="VM_BackEnd_FunMenu.jsp" %>
+	
 	<div class="container">
-	
-		<%@ include file="VM_BackEnd_FunMenu.jsp" %>
-	
 		<p class="h2">商品列表</p>
 		<br/>
-		
 		<form action="BackEndActionSearchGoods.do" method="get" class="needs-validation" novalidate>
 			<div class="form-row">
 			    <div class="col">
