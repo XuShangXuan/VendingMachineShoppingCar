@@ -27,18 +27,12 @@
 		<form action="BackEndActionSearchGoods.do" method="get" class="needs-validation" novalidate>
 			<div class="form-row">
 			    <div class="col">
-			      <label for="goodsIDID">商品編號</label>
-			      <input type="number" min="1" class="form-control" value="${searchCondition.goodsID}" name="goodsID" id="goodsIDID" placeholder="Enter number">
-			      <div class="valid-feedback">
-			        Looks good!
-			      </div>
+			      <label for="goodsID">商品編號</label>
+			      <input type="number" min="1" class="form-control" value="${searchCondition.goodsID}" name="goodsID" id="goodsID" placeholder="Enter number">
 			    </div>
 			    <div class="col">
 			      <label for="keywordID">商品名稱</label>
 			      <input type="text" class="form-control" value="${searchCondition.keyword}" name="keyword" id="keywordID" placeholder="Enter text">
-			      <div class="valid-feedback">
-			        Looks good!
-			      </div>
 			    </div>
 	  		</div>
 	  		<br/>
@@ -46,16 +40,10 @@
 			    <div class="col">
 			      <label for="minPriceID">商品價格最低價</label>
 			      <input type="number" min="0" class="form-control" value="${searchCondition.minPrice}" name="minPrice" id="minPriceID" placeholder="Enter goods price start">
-			      <div class="valid-feedback">
-			        Looks good!
-			      </div>
 			    </div>
 			    <div class="col">
 			      <label for="maxPriceID">商品價格最高價</label>
 			      <input type="number" min="0" class="form-control" value="${searchCondition.maxPrice}" name="maxPrice" id="maxPriceID" placeholder="Enter goods price end">
-			      <div class="valid-feedback">
-			        Looks good!
-			      </div>
 			    </div>
 			    <div class="col">
 			      <label for="sortByPriceID">價格排序</label>
@@ -64,9 +52,6 @@
 			        <option <c:if test="${searchCondition.sortByPrice eq 'ASC'}">selected</c:if> value="ASC">由低到高</option>
 					<option <c:if test="${searchCondition.sortByPrice eq 'DESC'}">selected</c:if> value="DESC">由高到低</option>
 				  </select>
-			      <div class="valid-feedback">
-			        Looks good!
-			      </div>
 			    </div>
 	  		</div>
 	  		<br/>
@@ -74,9 +59,6 @@
 			    <div class="col">
 			      <label for="stockID">商品低於庫存量</label>
 			      <input type="number" min="0" class="form-control" value="${searchCondition.stock}" name="stock" id="stockID" placeholder="Enter goods stock quantity">
-			      <div class="valid-feedback">
-			        Looks good!
-			      </div>
 			    </div>
 			    <div class="col">
 			      <label for="statusID">商品狀態</label>
@@ -85,9 +67,6 @@
 			        <option <c:if test="${searchCondition.status eq 1}">selected</c:if> value="1">上架</option>
 					<option <c:if test="${searchCondition.status eq 0 && not empty searchCondition.status}">selected</c:if> value="0">下架</option>
 				  </select>
-			      <div class="valid-feedback">
-			        Looks good!
-			      </div>
 			    </div>
 			    <div class="col">
 			    	<label for="submitID">查詢</label>
