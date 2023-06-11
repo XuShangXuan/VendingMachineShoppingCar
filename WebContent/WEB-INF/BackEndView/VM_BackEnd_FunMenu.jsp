@@ -38,6 +38,10 @@
 <!-- 	          </li> -->
 	        </ul>
 	        <a href="FrontEndAction.do?action=queryGoodsBySearchCondition" class="text-light nav-link">前台頁面</a>
+			<form class="form-inline" action="LoginAction.do" method="post">
+				<input type="hidden" name="action" value="logout"/>
+				<button class="btn btn-outline-success" type="submit">登出</button>
+			</form>
 	      </div>
 	    </nav>
     </div>
