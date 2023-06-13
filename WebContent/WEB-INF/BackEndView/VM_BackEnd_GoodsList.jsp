@@ -19,7 +19,7 @@
 	<div class="container">
 		<p class="h2">商品列表</p>
 		<br/>
-		<form action="BackEndActionSearchGoods.do" method="get" class="needs-validation">
+		<form action="BackEndActionSearchGoods.do" method="get">
 			<div class="form-row">
 			    <div class="col">
 			      <label for="goodsID">商品編號</label>
