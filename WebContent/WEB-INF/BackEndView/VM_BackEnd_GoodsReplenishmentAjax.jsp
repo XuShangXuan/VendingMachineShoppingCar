@@ -94,7 +94,7 @@
 	  		<div class="form-row">
 	  			<div class="col-3">
 			      <label for="goodsPrice">商品價格</label>
-			      <input type="text" class="form-control" name="goodsPrice" value="${modifyGoods.goodsPrice}" id="goodsPrice" min="1" required>
+			      <input type="number" class="form-control" name="goodsPrice" value="${modifyGoods.goodsPrice}" id="goodsPrice" min="1" required>
 			    </div>
 			</div>
 			<br/>
