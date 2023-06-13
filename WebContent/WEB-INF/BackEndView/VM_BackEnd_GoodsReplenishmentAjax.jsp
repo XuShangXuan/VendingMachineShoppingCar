@@ -118,11 +118,10 @@
 	  		<br/>
 	  		<button type="submit" class="btn btn-primary" onclick="submitFunction()">送出</button>
   		</form>
-		<%
-			session.removeAttribute("modifyMsg");
-			session.removeAttribute("modifyGoodsID");
-		%>
-		</div>
 	</div>
+	<%
+		session.removeAttribute("modifyMsg");
+		session.removeAttribute("modifyGoodsID");
+	%>
 </body>
 </html>
