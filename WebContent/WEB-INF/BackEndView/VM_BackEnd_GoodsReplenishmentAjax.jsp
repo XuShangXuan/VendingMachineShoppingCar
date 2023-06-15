@@ -73,7 +73,7 @@
 	<%@ include file="VM_BackEnd_FunMenu.jsp" %>
 	
 	<div class="container">
-		<h2>商品維護作業</h2><br/>
+		<h2>商品維護作業</h2>
 		<p style="color:blue;">${sessionScope.modifyMsg}</p>
 		<form class="needs-validation" name="updateGoodsForm" action="BackEndAction.do" method="post" novalidate>
 			<input type="hidden" name="action" value="updateGoods"/>
@@ -88,6 +88,9 @@
 						</option>
 					</c:forEach>
 				  </select>
+				  <div class="invalid-feedback">
+			        未選擇商品!
+			      </div>
 			    </div>
 	  		</div>
 	  		<br/>
@@ -95,14 +98,20 @@
 	  			<div class="col-3">
 			      <label for="goodsPrice">商品價格</label>
 			      <input type="number" class="form-control" name="goodsPrice" value="${modifyGoods.goodsPrice}" id="goodsPrice" min="1" required>
+			      <div class="invalid-feedback">
+			        商品價格必填!
+			      </div>
 			    </div>
 			</div>
 			<br/>
 			<div class="form-row">
 	  			<div class="col-3">
-			      <label for="goodsQuantity">商品庫存量</label>
+			      <label for="goodsQuantity">商品進貨量</label>
 			      <input type="number" class="form-control" value="0" name="goodsQuantity" id="goodsQuantity" min="0" required>
 			      (庫存:<span id="stockID">${modifyGoods.goodsQuantity}</span>件)
+			      <div class="invalid-feedback">
+			        商品進貨量必填!
+			      </div>
 			    </div>
 			</div>
 			<br/>
