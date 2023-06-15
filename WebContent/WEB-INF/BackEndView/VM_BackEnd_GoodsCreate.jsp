@@ -35,20 +35,6 @@
 		    $('#goodsImageName').change(function() {
 		        // 獲取選擇的檔案名稱
 		        var fileName = $(this).val().split('\\').pop();
-				
-		    	 // 設定檔案名稱顯示的前綴長度和後綴長度
-		        var prefixLength = 20;
-		        var suffixLength = 8;
-		        
-		        // 檢查檔案名稱長度是否超過指定長度
-		        if (fileName.length > prefixLength + suffixLength) {
-		          // 截斷檔案名稱的前綴和後綴
-		          var prefix = fileName.substring(0, prefixLength);
-		          var suffix = fileName.substring(fileName.length - suffixLength);
-		          
-		          // 組合截斷後的檔案名稱
-		          fileName = prefix + "....." + suffix;
-		        }
 		        
 		        // 更改 label 文字為選擇的檔案名稱
 		        $('#goodsImageNameText').text(fileName);
@@ -95,10 +81,12 @@
 			    </div>
 			</div>
 			<br/>
+			<span id="goodsImageNameText">未選擇檔案</span>
+			<br/>
 			<div class="custom-file col-4">
 		      <input type="file" class="custom-file-input" id="goodsImageName" name="goodsImageName" aria-describedby="goodsImageName" required/>
-		      <label id="goodsImageNameText" class="custom-file-label" for="goodsImageName"><span>選擇要上傳的商品圖片</span></label>
-		      <div class="invalid-feedback">商品進貨量必填!</div>
+		      <label class="custom-file-label" for="goodsImageName">選擇要上傳的商品圖片</label>
+		      <div class="invalid-feedback">未選擇檔案!</div>
 		    </div>
 		    <br/>
 			<br/>
