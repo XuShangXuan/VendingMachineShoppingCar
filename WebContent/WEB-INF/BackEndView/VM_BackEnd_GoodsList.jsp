@@ -68,7 +68,7 @@
 			    	<input type="hidden" name="action" value="queryGoodsBySearchCondition"/>
 			    	<input type="hidden" name="currentPage" value="1"/>
 			    	<input type="hidden" name="showPageCount" value="${searchCondition.page.showPageCount}"/>
-			    	<input type="submit" id="submitID" class="form-control" value="查詢">
+			    	<input type="submit" id="submitID" class="btn form-control" style="border:1px solid #ced4da;" value="查詢">
 			    </div>
 	  		</div>
 		</form>
