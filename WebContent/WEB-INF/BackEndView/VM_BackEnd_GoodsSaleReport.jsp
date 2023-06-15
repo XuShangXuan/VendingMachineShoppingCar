@@ -8,20 +8,23 @@
 <title>販賣機-後臺ShoppingCar</title>
 	<script type="text/javascript">
 		
-		function submitFunction() {
-	
-			var startDateID = document.getElementById("startDateID").value;
-			var endDateID = document.getElementById("endDateID").value;
-	
-			if (startDateID == null || startDateID == "") {
-				alert("請選擇查詢「起始日期」");
-			} else if (endDateID == null || endDateID == "") {
-				alert("請選擇查詢「結束日期」");
-			} else {
-				document.querySalesReport.submit();
-			}
-	
-		}
+		(function() {
+		  'use strict';
+		  window.addEventListener('load', function() {
+		    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		    var forms = document.getElementsByClassName('needs-validation');
+		    // Loop over them and prevent submission
+		    var validation = Array.prototype.filter.call(forms, function(form) {
+		      form.addEventListener('submit', function(event) {
+		        if (form.checkValidity() === false) {
+		          event.preventDefault();
+		          event.stopPropagation();
+		        }
+		        form.classList.add('was-validated');
+		      }, false);
+		    });
+		  }, false);
+		})();
 	
 	</script>
 </head>
@@ -29,30 +32,55 @@
 
 	<%@ include file="VM_BackEnd_FunMenu.jsp" %>
 	
-	<div class="container">	
-		<h2>銷售報表</h2><br/>
-		<div style="margin-left:25px;">
-		<form name="querySalesReport" action="BackEndAction.do" method="get">
+	<div class="container">
+	
+		<h2>銷售報表</h2>
+		<br/>
+		<form class="needs-validation" name="querySalesReport" action="BackEndAction.do" method="get" novalidate>
 			<input type="hidden" name="action" value="querySalesReport"/>
-			起 &nbsp; <input type="date" id="startDateID" name="queryStartDate" style="height:25px;width:180px;font-size:16px;text-align:center;"/>
-			&nbsp;
-			迄 &nbsp; <input type="date" id="endDateID" name="queryEndDate" style="height:25px;width:180px;font-size:16px;text-align:center;"/>	
-			<input type="button" value="查詢" onclick="submitFunction()" style="margin-left:25px; width:50px;height:32px"/>
+			<div class="form-row">
+			    <div class="col-4">
+			    	<span>起始日期</span>
+			    </div>
+			    <div class="col-4">
+			    	<span>結束日期</span>
+			    </div>
+	  		</div>
+	  		<div class="form-row">
+			    <div class="col-4">
+			    	<input class="form-control" type="date" id="startDateID" name="queryStartDate" required/>
+			    	<div class="invalid-feedback">
+			          尚未選擇起始日期(起)!
+			        </div>
+			    </div>
+			    <div class="col-4">
+			    	<input class="form-control" type="date" id="endDateID" name="queryEndDate" required/>
+			    	<div class="invalid-feedback">
+			          尚未選擇結束日期(訖)!
+			        </div>
+			    </div>
+			    <div class="col-4">
+			    	<button type="submit" class="btn form-control" style="border:1px solid #ced4da;">查詢</button>
+			    </div>
+	  		</div>
+	  		<br/>
 		</form>
 		<br/>
-		<table border="1">
-			<tbody>
-				<tr height="50">
-					<td width="100"><b>訂單編號</b></td>
-					<td width="100"><b>顧客姓名</b></td>
-					<td width="100"><b>購買日期</b></td>
-					<td width="125"><b>飲料名稱</b></td> 
-					<td width="100"><b>購買單價</b></td>
-					<td width="100"><b>購買數量</b></td>
-					<td width="100"><b>購買金額</b></td>
+		<table class="table table-striped table table-hover" border="1">
+			<thead>
+				<tr>
+					<th scope="col">訂單編號</th>
+					<th scope="col">顧客姓名</th>
+					<th scope="col">購買日期</th>
+					<th scope="col">飲料名稱</th> 
+					<th scope="col">購買單價</th>
+					<th scope="col">購買數量</th>
+					<th scope="col">購買金額</th>
 				</tr>
+			</thead>
+			<tbody>
 				<c:forEach items="${reports}" var="report">
-					<tr height="30">
+					<tr>
 						<td>${report.orderID}</td>
 						<td>${report.customerName}</td>
 						<td>${report.orderDate}</td>
@@ -64,7 +92,6 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		</div>
 	</div>
 </body>
 </html>
