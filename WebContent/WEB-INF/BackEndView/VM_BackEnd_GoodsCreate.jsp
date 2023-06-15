@@ -7,26 +7,23 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>販賣機-後臺ShoppingCar</title>
 	<script type="text/javascript">
-		function submitFunction() {
-			
-			var goodName = document.getElementById("nameID").value;
-			var goodsPrice = document.getElementById("priceID").value;
-			var goodsQuantity = document.getElementById("quantityID").value;
-			var imageID = document.getElementById("imageID").value;
-			
-			if (goodName == null || goodName == "") {
-				alert("請輸入「商品名稱」");
-			} else if (goodsPrice == null || goodsPrice == "") {
-				alert("請輸入「商品價格」");
-			} else if (goodsQuantity == null || goodsQuantity == "") {
-				alert("請輸入「上架數量」");
-			} else if (imageID == null || imageID == "") {
-				alert("尚未選擇「商品圖片」");
-			} else {
-				document.addGood.submit();
-			}
-	
-		}
+	(function() {
+		  'use strict';
+		  window.addEventListener('load', function() {
+		    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+		    var forms = document.getElementsByClassName('needs-validation');
+		    // Loop over them and prevent submission
+		    var validation = Array.prototype.filter.call(forms, function(form) {
+		      form.addEventListener('submit', function(event) {
+		        if (form.checkValidity() === false) {
+		          event.preventDefault();
+		          event.stopPropagation();
+		        }
+		        form.classList.add('was-validated');
+		      }, false);
+		    });
+		  }, false);
+		})();
 	</script>
 </head>
 <body>
@@ -34,39 +31,61 @@
 	<%@ include file="VM_BackEnd_FunMenu.jsp" %>
 	
 	<div class="container">
-		<h2>商品新增上架</h2><br/>
-		<div style="margin-left:25px;">
+		<h2>商品新增上架</h2>
 		<p style="color:blue;">${sessionScope.createMsg}</p>
 		<% session.removeAttribute("createMsg"); %>
-		<form name="addGood" action="BackEndAction.do?action=addGoods" enctype="multipart/form-data" method="post">
-			<p>
-				飲料名稱：
-				<input type="text" id="nameID" name="goodsName" size="10"/>
-			</p>
-			<p>
-				設定價格： 
-				<input type="number" id="priceID" name="goodsPrice" size="5" value="0" min="0" max="1000"/>
-			</p>
-			<p>
-				初始數量：
-				<input type="number" id="quantityID" name="goodsQuantity" size="5" value="0" min="0" max="1000"/>
-			</p>
-			<p>
-				商品圖片：
-				<input type="file" id="imageID" name="goodsImageName"/>
-			</p>
-			<p>
-				商品狀態：
-				<select name="status">
-					<option value="1">上架</option>
-					<option value="0">下架</option>				
-				</select>
-			</p>
-			<p>
-				<input type="button" value="送出" onclick="submitFunction()">
-			</p>
+		<form class="needs-validation" name="addGood" action="BackEndAction.do?action=addGoods" enctype="multipart/form-data" method="post" novalidate>
+			<div class="form-row">
+	  			<div class="col-4">
+			      <label for="goodsName">商品名稱</label>
+			      <input class="form-control" type="text" id="goodsName" name="goodsName" size="10" required/>
+			      <div class="invalid-feedback">
+			        商品名稱必填!
+			      </div>
+			    </div>
+			</div>
+			<br/>
+			<div class="form-row">
+	  			<div class="col-3">
+			      <label for="goodsPrice">商品價格</label>
+			      <input class="form-control" type="number" id="goodsPrice" name="goodsPrice" size="5" value="0" min="0" max="1000" required/>
+			      <div class="invalid-feedback">
+			        商品價格必填!
+			      </div>
+			    </div>
+			</div>
+			<br/>
+			<div class="form-row">
+	  			<div class="col-3">
+			      <label for="goodsQuantity">上架數量</label>
+			      <input class="form-control" type="number" id="goodsQuantity" name="goodsQuantity" size="5" value="0" min="0" max="1000" required/>
+			      <div class="invalid-feedback">
+			        上架數量必填!
+			      </div>
+			    </div>
+			</div>
+			<br/>
+			<div class="custom-file col-4">
+		      <input type="file" class="custom-file-input" id="goodsImageName" name="goodsImageName" aria-describedby="goodsImageName" required/>
+		      <label class="custom-file-label" for="goodsImageName">選擇要上傳的商品圖片</label>
+		      <div class="invalid-feedback">
+		      未選擇圖片!
+			  </div>
+		    </div>
+		    <br/>
+			<br/>
+			<div class="form-row">
+			    <div class="col-3">
+			      <label for="status">商品狀態</label>
+			      <select class="form-control" name="status" id="status" required>
+			      	<option <c:if test="${modifyGoods.status eq 1}">selected</c:if> value="1">上架</option>
+					<option <c:if test="${modifyGoods.status eq 0}">selected</c:if> value="0">下架</option>	
+				  </select>
+			    </div>
+	  		</div>
+			<br/>
+	  		<button type="submit" class="btn btn-primary" onclick="submitFunction()">送出</button>
 		</form>
-		</div>
 	</div>
 </body>
 </html>
